@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class ContactDatabase extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "Contact.db";
+    public static final String DATABASE_NAME = "Contacts.db";
     public static final String TABLE_NAME = "contactTable";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "FIRST_NAME";

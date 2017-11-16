@@ -73,12 +73,6 @@ public class DisplayAddActivity extends AppCompatActivity {
                         String gn = GroupName.getText().toString();
                         String num = PhoneNum.getText().toString();
 
-                        boolean isInserted = myDb.insertContact(first, last, gn, num);
-                        if (isInserted == true)
-                            Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
-
                         String fullName = first + " " + last;
 
                         Contact newContact = new Contact(first, last, gn, num);
@@ -90,9 +84,16 @@ public class DisplayAddActivity extends AppCompatActivity {
                             intent.putExtra("fullName", fullName);
                             setResult(RESULT_OK, intent);
                             finish();
+                            boolean isInserted = myDb.insertContact(first, last, gn, num);
+                            if (isInserted == true)
+                                Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
                         }
                         else
                         {
+                            Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
+
                             setResult(RESULT_CANCELED,intent);
                             finish();
                         }
