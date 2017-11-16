@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     static final int ADD_CONTACT_REQUEST = 1;
 
-    nameList.
+    //nameList.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                ListView a = (ListView) adapterView;
+                //ListView a = (ListView) adapterView;
 
             }
         });
