@@ -31,9 +31,9 @@ public class DisplayAddActivity extends AppCompatActivity {
         PhoneNum = (EditText) findViewById(R.id.editPhone);
         bottonDone = (Button) findViewById(R.id.button4);
 
-        addContactToDatabase();
+        addContact();
     }
-
+/*
     public void addContact(View button) {
 
 
@@ -61,29 +61,48 @@ public class DisplayAddActivity extends AppCompatActivity {
             finish();
         }
 
-    }
+    }*/
 
-    public void goBack(View button) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void addContactToDatabase() {
+    public void addContact() {
         bottonDone.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertContact(FirstName.getText().toString(),
-                                LastName.getText().toString(),
-                                GroupName.getText().toString(),
-                                PhoneNum.getText().toString());
+                        String first = FirstName.getText().toString();
+                        String last = LastName.getText().toString();
+                        String gn = GroupName.getText().toString();
+                        String num = PhoneNum.getText().toString();
+
+                        boolean isInserted = myDb.insertContact(first, last, gn, num);
                         if (isInserted == true)
                             Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
 
+                        String fullName = first + " " + last;
+
+                        Contact newContact = new Contact(first, last, gn, num);
+
+                        Intent intent = new Intent();
+
+                        //((MyData)getApplicationContext()).contactArrayList.add(newContact);
+                        if(!fullName.equals(" ")) {
+                            intent.putExtra("fullName", fullName);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                        else
+                        {
+                            setResult(RESULT_CANCELED,intent);
+                            finish();
+                        }
                     }
                 }
         );
+    }
+
+    public void goBack(View button) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
