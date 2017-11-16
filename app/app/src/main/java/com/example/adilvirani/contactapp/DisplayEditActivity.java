@@ -46,11 +46,17 @@ public class DisplayEditActivity extends AppCompatActivity {
         Contact newContact = new Contact(first, last, gn, num);
 
         //((MyData)getApplicationContext()).contactArrayList.add(newContact);
-
-        Intent intent = new Intent();
-        intent.putExtra("fullName", fullName);
-        setResult(RESULT_OK, intent);
-        finish();
+        if(!fullName.equals(" ")) {
+            Intent intent = new Intent();
+            intent.putExtra("fullName", fullName);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void goBack(View button) {

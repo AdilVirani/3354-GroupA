@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String returnString = data.getStringExtra("fullName");
                 addListElement(returnString);
+
             }
         }
     }
