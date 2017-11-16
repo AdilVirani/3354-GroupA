@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addContact(View button) {
-        Intent intent = new Intent(this, DisplayEditActivity.class);
+        Intent intent = new Intent(this, DisplayAddActivity.class);
         startActivityForResult(intent, ADD_CONTACT_REQUEST);
     }
 

@@ -22,7 +22,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".DisplayEditActivity"></activity>
+        <activity android:name=".DisplayAddActivity" />
+        <activity
+            android:name=".DisplayEditActivity"
+            android:label="@string/title_activity_display_edit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
