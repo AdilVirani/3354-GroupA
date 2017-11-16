@@ -6,39 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.adilvirani.contactapp.DisplayEditActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="84dp"
-        android:text="Home"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editGroup" />
-
-    <EditText
-        android:id="@+id/phoneNumber3"
-        android:layout_width="238dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.263"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
-
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="73dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toStartOf="@+id/editLastName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
@@ -49,12 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="First name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
+        app:layout_constraintHorizontal_bias="0.79"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,11 +37,11 @@
         android:id="@+id/editLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Last name"
         android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintHorizontal_bias="0.766"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editFirstName" />
@@ -75,40 +50,31 @@
         android:id="@+id/editGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Group name"
         android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintHorizontal_bias="0.766"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editLastName" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <EditText
+        android:id="@+id/editPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:text="Mobile"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editGroup" />
-
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="238dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Phone"
         android:inputType="phone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/editGroup" />
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editGroup"
+        app:layout_constraintVertical_bias="0.003" />
 
     <Button
         android:id="@+id/button4"
@@ -116,22 +82,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
-        android:onClick="goBack"
+        android:onClick="addContact"
         android:text="Done"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="112dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="80dp"
-        android:text="BlackList"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.845"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
 </android.support.constraint.ConstraintLayout>
