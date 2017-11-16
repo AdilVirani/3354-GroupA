@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class DisplayAddActivity extends AppCompatActivity {
 
@@ -13,19 +15,23 @@ public class DisplayAddActivity extends AppCompatActivity {
     private EditText GroupName;
     private EditText PhoneNum;
 
-
-
+    ContactDatabase myDb;
+    Button bottonDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_add);
 
+        myDb = new ContactDatabase(this);
+
         FirstName = (EditText) findViewById(R.id.editFirstName);
         LastName = (EditText) findViewById(R.id.editLastName);
         GroupName = (EditText) findViewById(R.id.editGroup);
         PhoneNum = (EditText) findViewById(R.id.editPhone);
+        bottonDone = (Button) findViewById(R.id.button4);
 
+        addContactToDatabase();
     }
 
     public void addContact(View button) {
@@ -62,5 +68,22 @@ public class DisplayAddActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void addContactToDatabase() {
+        bottonDone.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isInserted = myDb.insertContact(FirstName.getText().toString(),
+                                LastName.getText().toString(),
+                                GroupName.getText().toString(),
+                                PhoneNum.getText().toString());
+                        if (isInserted == true)
+                            Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
 
+                    }
+                }
+        );
+    }
 }
