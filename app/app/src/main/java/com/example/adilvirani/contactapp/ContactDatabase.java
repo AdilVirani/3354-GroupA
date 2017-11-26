@@ -73,4 +73,16 @@ public class ContactDatabase extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
         return res;
     }
+
+    public boolean updateContact (Integer id, String firstName, String lastName, String group, String number) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2, firstName);
+        contentValues.put(COL_3, lastName);
+        contentValues.put(COL_4, group);
+        contentValues.put(COL_5, number);
+        db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        return true;
+    }
+
 }

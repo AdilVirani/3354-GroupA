@@ -16,7 +16,7 @@ public class DisplayAddActivity extends AppCompatActivity {
     private EditText PhoneNum;
 
     ContactDatabase myDb;
-    Button bottonDone;
+    Button buttonDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +29,13 @@ public class DisplayAddActivity extends AppCompatActivity {
         LastName = (EditText) findViewById(R.id.editLastName);
         GroupName = (EditText) findViewById(R.id.editGroup);
         PhoneNum = (EditText) findViewById(R.id.editPhone);
-        bottonDone = (Button) findViewById(R.id.button4);
+        buttonDone = (Button) findViewById(R.id.button4);
 
         addContact();
     }
 
     public void addContact() {
-        bottonDone.setOnClickListener(
+        buttonDone.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -46,11 +46,9 @@ public class DisplayAddActivity extends AppCompatActivity {
 
                         String fullName = first + " " + last;
 
-                        //Contact newContact = new Contact(first, last, gn, num);
 
                         Intent intent = new Intent();
 
-                        //((MyData)getApplicationContext()).contactArrayList.add(newContact);
                         if(!fullName.equals(" ")) {
                             intent.putExtra("fullName", fullName);
                             setResult(RESULT_OK, intent);

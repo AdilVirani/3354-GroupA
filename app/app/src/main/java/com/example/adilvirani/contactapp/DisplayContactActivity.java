@@ -1,8 +1,10 @@
 package com.example.adilvirani.contactapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class DisplayContactActivity extends AppCompatActivity {
@@ -11,6 +13,7 @@ public class DisplayContactActivity extends AppCompatActivity {
     TextView namefield;
     TextView phonefield;
     TextView groupfield;
+    int id_To_Update = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class DisplayContactActivity extends AppCompatActivity {
             if(value>0){
 
                 Cursor rs = mydb.getData(value);
+                id_To_Update = value;
                 rs.moveToFirst();
 
                 String fullname = rs.getString(rs.getColumnIndex(ContactDatabase.COL_2)) + " " + rs.getString(rs.getColumnIndex(ContactDatabase.COL_3));
@@ -47,10 +51,17 @@ public class DisplayContactActivity extends AppCompatActivity {
             }
         }
 
-        //namefield.setText((CharSequence)fullname);
-        //groupfield.setText((CharSequence)"HELLO");
-        //phonefield.setText(number);
+    }
 
+    public void editContact(View button) {
 
+        Bundle dataBundle = new Bundle();
+        dataBundle.putInt("id", id_To_Update);
+
+        Intent intent = new Intent(this, DisplayEditActivity.class);
+
+        intent.putExtras(dataBundle);
+
+        startActivity(intent);
     }
 }
