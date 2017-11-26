@@ -33,35 +33,6 @@ public class DisplayAddActivity extends AppCompatActivity {
 
         addContact();
     }
-/*
-    public void addContact(View button) {
-
-
-        String first = FirstName.getText().toString();
-        String last = LastName.getText().toString();
-        String gn = GroupName.getText().toString();
-        String num = PhoneNum.getText().toString();
-
-        String fullName = first + " " + last;
-
-
-        Contact newContact = new Contact(first, last, gn, num);
-
-        Intent intent = new Intent();
-
-        //((MyData)getApplicationContext()).contactArrayList.add(newContact);
-        if(!fullName.equals(" ")) {
-            intent.putExtra("fullName", fullName);
-            setResult(RESULT_OK, intent);
-            finish();
-        }
-        else
-        {
-            setResult(RESULT_CANCELED,intent);
-            finish();
-        }
-
-    }*/
 
     public void addContact() {
         bottonDone.setOnClickListener(
@@ -75,7 +46,7 @@ public class DisplayAddActivity extends AppCompatActivity {
 
                         String fullName = first + " " + last;
 
-                        Contact newContact = new Contact(first, last, gn, num);
+                        //Contact newContact = new Contact(first, last, gn, num);
 
                         Intent intent = new Intent();
 

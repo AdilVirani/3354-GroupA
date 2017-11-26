@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -15,30 +16,42 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> nameList;
     private ArrayAdapter<String> adapter;
-
+    ContactDatabase mydb;
 
     static final int ADD_CONTACT_REQUEST = 1;
 
-    //nameList.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameList = new ArrayList<String>();
+        mydb = new ContactDatabase(this);
+
+        nameList = mydb.getAllContacts();
+        //System.out.println(Arrays.toString(nameList.toArray()));
+
+        //nameList = new ArrayList<String>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nameList);
         ListView listView = (ListView) findViewById(R.id.contactList);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
 
-                //ListView a = (ListView) adapterView;
+                int id_To_Search = position + 1;
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("id", id_To_Search);
 
+                Intent intent = new Intent(MainActivity.this, DisplayContactActivity.class);
+
+                intent.putExtras(dataBundle);
+
+                startActivity(intent);
             }
         });
-    }
+}
 
     /**
      * Called when the user taps the Contact's button
