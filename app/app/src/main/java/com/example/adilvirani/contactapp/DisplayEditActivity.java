@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ public class DisplayEditActivity extends AppCompatActivity {
     EditText lastfield;
     EditText phonefield;
     EditText groupfield;
+
+    private boolean blacklist;
+
     Button buttonDone;
     int id_To_Update = 0;
 
@@ -33,6 +37,12 @@ public class DisplayEditActivity extends AppCompatActivity {
         phonefield = (EditText) findViewById(R.id.editPhone);
         groupfield = (EditText) findViewById(R.id.editGroup);
         buttonDone = (Button) findViewById(R.id.button4);
+
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
+        if (checkBox.isChecked()) {
+            checkBox.setChecked(false);
+            blacklist = false;
+        }
 
         mydb = new ContactDatabase(this);
         Bundle extras = getIntent().getExtras();
@@ -73,8 +83,13 @@ public class DisplayEditActivity extends AppCompatActivity {
                         String gn = groupfield.getText().toString();
                         String num = phonefield.getText().toString();
 
+                        int bl;
+                        if (blacklist) //if blacklist = true
+                            bl = 1;
+                        else
+                            bl = 0;
 
-                        boolean isInserted = mydb.updateContact(id_To_Update, first, last, gn, num);
+                        boolean isInserted = mydb.updateContact(id_To_Update, first, last, gn, num, bl);
                         if (isInserted == true) {
                             Toast.makeText(DisplayEditActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

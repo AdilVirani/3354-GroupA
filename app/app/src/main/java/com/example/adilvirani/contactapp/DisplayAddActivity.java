@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ public class DisplayAddActivity extends AppCompatActivity {
     private EditText LastName;
     private EditText GroupName;
     private EditText PhoneNum;
+
+    private boolean blacklist;
 
     ContactDatabase myDb;
     Button buttonDone;
@@ -31,6 +34,11 @@ public class DisplayAddActivity extends AppCompatActivity {
         PhoneNum = (EditText) findViewById(R.id.editPhone);
         buttonDone = (Button) findViewById(R.id.button4);
 
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
+        if (checkBox.isChecked()) {
+            checkBox.setChecked(false);
+        }
+
         addContact();
     }
 
@@ -43,9 +51,13 @@ public class DisplayAddActivity extends AppCompatActivity {
                         String last = LastName.getText().toString();
                         String gn = GroupName.getText().toString();
                         String num = PhoneNum.getText().toString();
+                        int bl;
+                        if (blacklist) //if blacklist = true
+                            bl = 1;
+                        else
+                            bl = 0;
 
                         String fullName = first + " " + last;
-
 
                         Intent intent = new Intent();
 
@@ -53,7 +65,7 @@ public class DisplayAddActivity extends AppCompatActivity {
                             intent.putExtra("fullName", fullName);
                             setResult(RESULT_OK, intent);
                             finish();
-                            boolean isInserted = myDb.insertContact(first, last, gn, num);
+                            boolean isInserted = myDb.insertContact(first, last, gn, num, bl);
                             if (isInserted == true)
                                 Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
                             else
@@ -71,8 +83,19 @@ public class DisplayAddActivity extends AppCompatActivity {
         );
     }
 
-    public void goBack(View button) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    public void onCheckboxClicked(View view) {
+
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+
+            case R.id.checkBox_blacklist:
+                if (checked) {
+                    blacklist = true;
+                } else {
+                    blacklist = false;
+                }
+                break;
+        }
     }
 }

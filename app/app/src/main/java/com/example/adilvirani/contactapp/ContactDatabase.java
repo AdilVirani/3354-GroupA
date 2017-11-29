@@ -19,6 +19,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
     public static final String COL_3 = "LAST_NAME";
     public static final String COL_4 = "GROUP_NAME";
     public static final String COL_5 = "NUMBER";
+    public static final String COL_6 = "BLACKLIST";
 
     public ContactDatabase(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -27,7 +28,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "FIRST_NAME TEXT,LAST_NAME TEXT,GROUP_NAME TEXT,NUMBER INTEGER)");
+                "FIRST_NAME TEXT,LAST_NAME TEXT,GROUP_NAME TEXT,NUMBER INTEGER, BLACKLIST INTEGER)");
     }
 
     @Override
@@ -36,13 +37,14 @@ public class ContactDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertContact(String firstName, String LastName, String group, String number) {
+    public boolean insertContact(String firstName, String LastName, String group, String number, int blacklist) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, firstName);
         contentValues.put(COL_3, LastName);
         contentValues.put(COL_4, group);
         contentValues.put(COL_5, number);
+        contentValues.put(COL_6, blacklist);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1 )
             return false;
@@ -74,13 +76,14 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateContact (Integer id, String firstName, String lastName, String group, String number) {
+    public boolean updateContact (Integer id, String firstName, String lastName, String group, String number, int blacklist) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, firstName);
         contentValues.put(COL_3, lastName);
         contentValues.put(COL_4, group);
         contentValues.put(COL_5, number);
+        contentValues.put(COL_6, blacklist);
         db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
