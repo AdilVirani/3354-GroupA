@@ -38,14 +38,13 @@ public class DisplayEditActivity extends AppCompatActivity {
         groupfield = (EditText) findViewById(R.id.editGroup);
         buttonDone = (Button) findViewById(R.id.button4);
 
+        mydb = new ContactDatabase(this);
+        Bundle extras = getIntent().getExtras();
+
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
         if (checkBox.isChecked()) {
             checkBox.setChecked(false);
-            blacklist = false;
         }
-
-        mydb = new ContactDatabase(this);
-        Bundle extras = getIntent().getExtras();
 
         if(extras !=null) {
             int value = extras.getInt("id");
@@ -101,6 +100,22 @@ public class DisplayEditActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void onCheckboxClicked(View view) {
+
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+
+            case R.id.checkBox_blacklist:
+                if (checked) {
+                    blacklist = true;
+                } else {
+                    blacklist = false;
+                }
+                break;
+        }
     }
 
     public void goBack(View button) {
