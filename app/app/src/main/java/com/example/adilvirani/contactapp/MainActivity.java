@@ -19,17 +19,20 @@ public class MainActivity extends AppCompatActivity {
     ContactDatabase mydb;
 
     static final int ADD_CONTACT_REQUEST = 1;
-
+    static final int VIEW_CONTACT_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        renderList();
+    }
 
+    protected void renderList() {
         mydb = new ContactDatabase(this);
 
         nameList = mydb.getAllContacts();
-        //System.out.println(Arrays.toString(nameList.toArray()));
+        System.out.println(Arrays.toString(nameList.toArray()));
 
         //nameList = new ArrayList<String>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nameList);
@@ -39,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+                System.out.println(position);
+                        System.out.println(id);
 
-                int id_To_Search = position + 1;
+//                int id_To_Search = int(id);
                 Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", id_To_Search);
+                dataBundle.putInt("id", (int) id);
 
                 Intent intent = new Intent(MainActivity.this, DisplayContactActivity.class);
 
@@ -51,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-}
+    }
 
     /**
      * Called when the user taps the Contact's button
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public void displayContactInfo(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, DisplayContactActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, VIEW_CONTACT_REQUEST);
     }
 
     public void addContact(View button) {
@@ -69,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == ADD_CONTACT_REQUEST) {
+        switch (requestCode) {
+            case ADD_CONTACT_REQUEST:
 
             // Make sure the request was successful
             if (resultCode == RESULT_OK && data != null) {
@@ -77,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 String returnString = data.getStringExtra("fullName");
                 addListElement(returnString);
             }
+            case VIEW_CONTACT_REQUEST:
+                System.out.println("hehe");
+                renderList();
         }
     }
 

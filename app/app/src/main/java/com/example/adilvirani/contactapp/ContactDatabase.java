@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Created by evelynwong on 11/16/17.
  */
 
+
 public class ContactDatabase extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Contacts.db";
     public static final String TABLE_NAME = "contacts";
@@ -66,6 +67,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
             array_list.add(FULL_NAME);
             res.moveToNext();
         }
+
         return array_list;
     }
 
@@ -87,5 +89,13 @@ public class ContactDatabase extends SQLiteOpenHelper {
         db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
+
+    public boolean destroyContact(Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("contacts", "id = ?", new String[] { Integer.toString(id) });
+
+        return true;
+    }
+
 
 }
