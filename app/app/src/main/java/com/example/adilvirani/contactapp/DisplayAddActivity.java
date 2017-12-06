@@ -28,6 +28,9 @@ public class DisplayAddActivity extends AppCompatActivity {
 
         myDb = new ContactDatabase(this);
 
+
+        //edit fields
+
         FirstName = (EditText) findViewById(R.id.editFirstName);
         LastName = (EditText) findViewById(R.id.editLastName);
         GroupName = (EditText) findViewById(R.id.editGroup);
@@ -64,7 +67,7 @@ public class DisplayAddActivity extends AppCompatActivity {
 
                     Intent intent = new Intent();
 
-
+                    //check if name entered
                     if (!fullName.equals(" ")) {
                         intent.putExtra("fullName", fullName);
                         setResult(RESULT_OK, intent);
@@ -91,6 +94,8 @@ public class DisplayAddActivity extends AppCompatActivity {
         );
     }
 
+
+    //save contact into database
     public void saveContact(Contact c) {
 //        boolean inserted = this.myDb.insertContact(c);
         if (this.myDb.insertContact(c) !=  null) {
@@ -100,6 +105,7 @@ public class DisplayAddActivity extends AppCompatActivity {
         }
     }
 
+    //if checkbox or black list clicked
     public void onCheckboxClicked(View view) {
 
         boolean checked = ((CheckBox) view).isChecked();

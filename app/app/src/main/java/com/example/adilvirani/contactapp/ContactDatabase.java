@@ -38,6 +38,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //dele contact from database
     public boolean destroyContact(Contact c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -46,6 +47,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return (result == 1);
     }
 
+    //Insert contacts into database
     public Contact insertContact(Contact c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -67,30 +69,8 @@ public class ContactDatabase extends SQLiteOpenHelper {
         }
 
         return null;
-//
-//        if (result == -1 )
-//            return false;
-//        else
-//            return true;
     }
 
-
-//    public boolean insertContact(String firstName, String LastName, String group, String number, int blacklist) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(COL_2, firstName);
-//        contentValues.put(COL_3, LastName);
-//        contentValues.put(COL_4, group);
-//        contentValues.put(COL_5, number);
-//        contentValues.put(COL_6, blacklist);
-//        long result = db.insert(TABLE_NAME, null, contentValues);
-//
-//        if (result == -1 )
-//            return false;
-//        else
-//            return true;
-//    }
 
     public void truncateContacts() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -98,6 +78,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
     }
 
 
+    //All contacts into a Contact List
     public List<Contact> allContacts() {
         ArrayList<Contact> contactsList = new ArrayList<Contact>();
 
@@ -129,27 +110,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return contactsList;
     }
 
-    public ArrayList<String> namesList(){
-        ArrayList<String> namesList = new ArrayList<String>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor res =  db.rawQuery( "select * from contacts", null );
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String firstName = res.getString(res.getColumnIndex(COL_2));
-            String lastName = res.getString(res.getColumnIndex(COL_3));
-
-            String fullName = firstName + " " + lastName;
-
-            namesList.add(fullName);
-
-            res.moveToNext();
-        }
-
-        return namesList;
-    }
+    //Get data through cursor
     public Cursor getData(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -157,6 +118,7 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return res;
     }
 
+    //Update contact after edit
     public boolean updateContact(Contact c) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -173,16 +135,5 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return rt > 0;
     }
 
-//    public boolean updateContact (Integer id, String firstName, String lastName, String group, String number, int blacklist) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(COL_2, firstName);
-//        contentValues.put(COL_3, lastName);
-//        contentValues.put(COL_4, group);
-//        contentValues.put(COL_5, number);
-//        contentValues.put(COL_6, blacklist);
-//        db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
-//        return true;
-//    }
 
 }

@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Refresh list when activity created
     protected void refreshList() {
         this.contacts = mydb.allContacts();
         this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.contacts);
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         renderList();
     }
 
+    //render list and check if sort clicked
     protected void renderList() {
         if (this.sortReverse) {
             Comparator<Contact> comp = Collections.reverseOrder();
@@ -65,10 +67,11 @@ public class MainActivity extends AppCompatActivity {
             Collections.sort(this.contacts);
         }
 
-
+        //Add to listview and adapter
         ListView listView = (ListView) findViewById(R.id.contactList);
         listView.setAdapter(this.adapter);
 
+        //if contact clicked, open contact viewer
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Sort toggle in menu
     protected void toggleSort() {
         this.sortReverse = !this.sortReverse;
 
@@ -106,12 +110,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called when the user taps the Contact's button
      */
+    //display contact info intent when name clicked
     public void displayContactInfo(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, DisplayContactActivity.class);
         startActivity(intent);
     }
 
+    //add contact button
     public void addContact(View button) {
         Intent intent = new Intent(this, DisplayAddActivity.class);
         startActivityForResult(intent, ADD_CONTACT_REQUEST);
@@ -120,27 +126,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         refreshList();
 
-//        // Check which request we're responding to
-//        switch (requestCode) {
-//            case ADD_CONTACT_REQUEST:
-//                // Make sure the request was successful
-//                if (resultCode == RESULT_OK && data != null) {
-//                    String returnString = data.getStringExtra("fullName");
-//                    addContact(returnString);
-//                }
-//            case VIEW_CONTACT_REQUEST:
-//
-//        }
-//
-//
     }
 
-
+    //if sort clicked in menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sort_contacts:
-                this.toggleSort();
+                this.toggleSort(); //toggle the sort method if clickd
                 return true;
        /* switch (item.getItemId()) {
             case R.id.search_contact:
@@ -154,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addContact(String element) {
-//        nameList.add(element);
         adapter.notifyDataSetChanged();
     }
 

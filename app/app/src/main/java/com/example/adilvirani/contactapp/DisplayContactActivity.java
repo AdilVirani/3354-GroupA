@@ -28,6 +28,7 @@ public class DisplayContactActivity extends AppCompatActivity {
         return true;
     }
 
+    //set the field texts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class DisplayContactActivity extends AppCompatActivity {
         this.mydb = new ContactDatabase(this);
         Bundle extras = getIntent().getExtras();
 
+        //pass contact through bundle
         Contact c = (Contact) (extras.getSerializable("contact"));
         this.contact = c;
 
@@ -50,7 +52,7 @@ public class DisplayContactActivity extends AppCompatActivity {
         CharSequence phone = (CharSequence) (c.getPhoneNumber());
         CharSequence bl;
 
-
+        //set edited text fields
         nameField.setText(name);
         phoneField.setText(phone);
         groupField.setText(group);
@@ -62,6 +64,7 @@ public class DisplayContactActivity extends AppCompatActivity {
     }
 
 
+    //if delete clicked in menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -84,7 +87,7 @@ public class DisplayContactActivity extends AppCompatActivity {
     }
 
 
-
+    //edit contact on click
     public void editContact(View button) {
         Bundle data = new Bundle();
         data.putSerializable("contact", this.contact);
@@ -95,6 +98,7 @@ public class DisplayContactActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //goes to sms app on click
     public void smsContact(View button) {
         if(this.contact.getBlacklist())
             Toast.makeText(DisplayContactActivity.this,"Contact BlackListed", Toast.LENGTH_LONG).show();
@@ -105,6 +109,7 @@ public class DisplayContactActivity extends AppCompatActivity {
 
     }
 
+    //goes to phone app on click
     public void callContact(View button){
         if(this.contact.getBlacklist())
             Toast.makeText(DisplayContactActivity.this,"Contact BlackListed", Toast.LENGTH_LONG).show();

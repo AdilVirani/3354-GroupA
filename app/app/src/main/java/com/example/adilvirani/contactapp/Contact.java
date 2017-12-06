@@ -15,6 +15,8 @@ public class Contact implements Serializable,Comparable<Contact>{
     protected String firstName, lastName, groupName, phoneNumber;
     protected boolean blacklist;
 
+
+    //Contact constructor
     Contact(String firstName, String lastName, String groupName, String phoneNumber, boolean bl)
     {
         this.firstName = firstName;
@@ -28,6 +30,8 @@ public class Contact implements Serializable,Comparable<Contact>{
         return this._id;
     }
 
+
+    //Update contact
     public void update(String firstName, String lastName, String groupName, String phoneNumber, boolean bl) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,24 +40,29 @@ public class Contact implements Serializable,Comparable<Contact>{
         this.blacklist = bl;
     }
 
+    //Compare function for search
     public int compareTo(Contact c) {
         return this.fullName().compareTo(c.fullName());
     }
 
-
+    //Set ID
     public void setID(int id) {
         this._id = id;
     }
 
+
+    //Get first name
     public String getFirstName() {
         return this.firstName;
     }
 
+    //Get last name
     public String getLastName() {
         return this.lastName;
     }
 
 
+    //Print fullName
     public String fullName() {
         StringJoiner j = new StringJoiner(" ");
         j.add(this.firstName);
@@ -62,16 +71,20 @@ public class Contact implements Serializable,Comparable<Contact>{
         return j.toString();
     }
 
+    //Get GroupName
     public String getGroupName() {
         return this.groupName;
     }
 
+    //Get phone number
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
+    //get black list
     public boolean getBlacklist() {return this.blacklist; }
 
+    //return full name
     public String toString() {
         return this.fullName();
     }
