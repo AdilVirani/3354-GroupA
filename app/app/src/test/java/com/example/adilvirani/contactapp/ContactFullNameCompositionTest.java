@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class ContactFullNameCompositionTest {
     @Test
     public void fullName_works() throws Exception {
-        Contact c = new Contact("adil", "virani", "n/a", "2145664791");
+        Contact c = new Contact("adil", "virani", "n/a", "2145664791", false);
         assertEquals(c.fullName(), "adil virani");
     }
 }

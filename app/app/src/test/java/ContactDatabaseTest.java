@@ -1,5 +1,3 @@
-package com.example.adilvirani.contactapp;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
