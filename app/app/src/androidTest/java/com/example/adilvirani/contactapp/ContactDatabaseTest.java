@@ -46,7 +46,7 @@ public class ContactDatabaseTest {
     public void addContact() throws Exception {
         // warn: runs on same db
         Context appContext = InstrumentationRegistry.getTargetContext();
-        Contact c = new Contact("adil", "virani", "n/a", "2145664791");
+        Contact c = new Contact("adil", "virani", "n/a", "2145664791", false);
 
 
         ContactDatabase db = new ContactDatabase(appContext);

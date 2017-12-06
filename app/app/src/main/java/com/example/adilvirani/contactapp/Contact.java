@@ -13,24 +13,27 @@ public class Contact implements Serializable,Comparable<Contact>{
 
     protected int _id;
     protected String firstName, lastName, groupName, phoneNumber;
+    protected boolean blacklist;
 
-    Contact(String firstName, String lastName, String groupName, String phoneNumber)
+    Contact(String firstName, String lastName, String groupName, String phoneNumber, boolean bl)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupName = groupName;
         this.phoneNumber = phoneNumber;
+        this.blacklist = bl;
     }
 
     public int id()  {
         return this._id;
     }
 
-    public void update(String firstName, String lastName, String groupName, String phoneNumber) {
+    public void update(String firstName, String lastName, String groupName, String phoneNumber, boolean bl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupName = groupName;
         this.phoneNumber = phoneNumber;
+        this.blacklist = bl;
     }
 
     public int compareTo(Contact c) {
@@ -66,6 +69,8 @@ public class Contact implements Serializable,Comparable<Contact>{
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
+
+    public boolean getBlacklist() {return this.blacklist; }
 
     public String toString() {
         return this.fullName();

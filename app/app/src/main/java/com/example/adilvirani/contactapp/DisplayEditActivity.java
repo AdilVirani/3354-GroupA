@@ -38,6 +38,7 @@ public class DisplayEditActivity extends AppCompatActivity {
         lastfield = (EditText) findViewById(R.id.editLastName);
         phonefield = (EditText) findViewById(R.id.editPhone);
         groupfield = (EditText) findViewById(R.id.editGroup);
+
         buttonDone = (Button) findViewById(R.id.button4);
 
         mydb = new ContactDatabase(this);
@@ -48,7 +49,7 @@ public class DisplayEditActivity extends AppCompatActivity {
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
         if (checkBox.isChecked()) {
-            checkBox.setChecked(false);
+            checkBox.setChecked(true);
         }
 
             firstfield.setText(c.getFirstName(), TextView.BufferType.EDITABLE);
@@ -91,13 +92,8 @@ public class DisplayEditActivity extends AppCompatActivity {
                     String last = lastfield.getText().toString();
                     String gn = groupfield.getText().toString();
                     String num = phonefield.getText().toString();
-                    contact.update(first, last, gn, num);
 
-                    int bl;
-                    if (blacklist) //if blacklist = true
-                        bl = 1;
-                    else
-                        bl = 0;
+                    contact.update(first, last, gn, num, blacklist);
 
                     boolean isInserted = mydb.updateContact(contact);
 //                        boolean isInserted = mydb.updateContact(id_To_Update, first, last, gn, num, bl);

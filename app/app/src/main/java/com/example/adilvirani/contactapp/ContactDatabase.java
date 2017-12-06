@@ -54,7 +54,10 @@ public class ContactDatabase extends SQLiteOpenHelper {
         contentValues.put(COL_3, c.getLastName());
         contentValues.put(COL_4, c.getGroupName());
         contentValues.put(COL_5, c.getPhoneNumber());
-//        contentValues.put(COL_6, c.getBlacklistStatus());
+        if (c.getBlacklist())
+            contentValues.put(COL_6, 1);
+        else
+            contentValues.put(COL_6, 0);
 
         long rid = db.insert(TABLE_NAME, null, contentValues);
 
@@ -108,9 +111,14 @@ public class ContactDatabase extends SQLiteOpenHelper {
             String lastName = res.getString(res.getColumnIndex(COL_3));
             String groupName = res.getString(res.getColumnIndex(COL_4));
             String phoneNumber = res.getString(res.getColumnIndex(COL_5));
+            Boolean bl;
+            if (res.getInt(res.getColumnIndex(COL_6)) == 0)
+                bl = false;
+            else
+                bl = true;
             int cid = res.getInt(res.getColumnIndex(COL_1));
 
-            Contact nc = new Contact(firstName, lastName, groupName, phoneNumber);
+            Contact nc = new Contact(firstName, lastName, groupName, phoneNumber, bl);
             nc.setID(cid);
 
             contactsList.add(nc);

@@ -59,7 +59,7 @@ public class DisplayAddActivity extends AppCompatActivity {
 //                    else
 //                        bl = 0;
 
-                    Contact contact = new Contact(firstName, lastName, groupName, phoneNumber);
+                    Contact contact = new Contact(firstName, lastName, groupName, phoneNumber, blacklist);
                     String fullName = contact.fullName();
 
                     Intent intent = new Intent();

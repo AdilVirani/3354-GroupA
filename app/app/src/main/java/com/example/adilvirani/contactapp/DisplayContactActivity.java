@@ -17,6 +17,7 @@ public class DisplayContactActivity extends AppCompatActivity {
     TextView nameField;
     TextView phoneField;
     TextView groupField;
+    TextView blField;
 //    int id_To_Update = 0;
 
     @Override
@@ -35,6 +36,7 @@ public class DisplayContactActivity extends AppCompatActivity {
         nameField = (TextView) findViewById(R.id.name_field);
         phoneField = (TextView) findViewById(R.id.phone_field);
         groupField = (TextView) findViewById(R.id.group_field);
+        blField = (TextView) findViewById(R.id.bl_field);
 
         this.mydb = new ContactDatabase(this);
         Bundle extras = getIntent().getExtras();
@@ -45,10 +47,16 @@ public class DisplayContactActivity extends AppCompatActivity {
         CharSequence name = (CharSequence) (c.fullName());
         CharSequence group = (CharSequence) (c.getGroupName());
         CharSequence phone = (CharSequence) (c.getPhoneNumber());
+        CharSequence bl;
+        if (c.getBlacklist())
+            bl = (CharSequence) ("Blacklisted");
+        else
+            bl = (CharSequence) ("Not Blacklisted");
 
         nameField.setText(name);
         phoneField.setText(group);
         groupField.setText(phone);
+        blField.setText(bl);
 
 //       if(extras != null) {
 //            int value = extras.getInt("id");
