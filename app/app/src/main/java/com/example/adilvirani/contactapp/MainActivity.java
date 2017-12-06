@@ -2,8 +2,10 @@ package com.example.adilvirani.contactapp;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.list_contacts, menu);
+
         return true;
     }
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Collections.sort(this.contacts);
         }
+
 
         ListView listView = (ListView) findViewById(R.id.contactList);
         listView.setAdapter(this.adapter);
@@ -137,16 +141,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sort_contacts:
                 this.toggleSort();
-                // User chose the "Settings" item, show the app settings UI...
-//                if (mydb.destroyContact(this.contact)) {
-//                    Toast.makeText(DisplayContactActivity.this,"Contact deleted", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent();
-//
-//                    setResult(RESULT_OK, intent);
-//                    finish();
-//                }
-
                 return true;
+       /* switch (item.getItemId()) {
+            case R.id.search_contact:
+                return true;*/
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

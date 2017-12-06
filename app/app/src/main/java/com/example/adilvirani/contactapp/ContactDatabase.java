@@ -129,6 +129,27 @@ public class ContactDatabase extends SQLiteOpenHelper {
         return contactsList;
     }
 
+    public ArrayList<String> namesList(){
+        ArrayList<String> namesList = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res =  db.rawQuery( "select * from contacts", null );
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            String firstName = res.getString(res.getColumnIndex(COL_2));
+            String lastName = res.getString(res.getColumnIndex(COL_3));
+
+            String fullName = firstName + " " + lastName;
+
+            namesList.add(fullName);
+
+            res.moveToNext();
+        }
+
+        return namesList;
+    }
     public Cursor getData(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();

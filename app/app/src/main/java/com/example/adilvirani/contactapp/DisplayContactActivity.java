@@ -2,6 +2,7 @@ package com.example.adilvirani.contactapp;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,37 +49,15 @@ public class DisplayContactActivity extends AppCompatActivity {
         CharSequence group = (CharSequence) (c.getGroupName());
         CharSequence phone = (CharSequence) (c.getPhoneNumber());
         CharSequence bl;
-        if (c.getBlacklist())
-            bl = (CharSequence) ("Blacklisted");
-        else
-            bl = (CharSequence) ("Not Blacklisted");
+
 
         nameField.setText(name);
-        phoneField.setText(group);
-        groupField.setText(phone);
-        blField.setText(bl);
-
-//       if(extras != null) {
-//            int value = extras.getInt("id");
-//
-//            if(value>0){
-//                Cursor rs = mydb.getData(value);
-//                id_To_Update = value;
-//                rs.moveToFirst();
-//
-//                String fullname = rs.getString(rs.getColumnIndex(ContactDatabase.COL_2)) + " " + rs.getString(rs.getColumnIndex(ContactDatabase.COL_3));
-//                String group = rs.getString(rs.getColumnIndex(ContactDatabase.COL_4));
-//                String number = rs.getString(rs.getColumnIndex(ContactDatabase.COL_5));
-//
-//                if (!rs.isClosed())  {
-//                    rs.close();
-//                }
-//
-//                namefield.setText((CharSequence)fullname);
-//                groupfield.setText((CharSequence)group);
-//                phonefield.setText((CharSequence)number);
-//            }
-//        }
+        phoneField.setText(phone);
+        groupField.setText(group);
+        if (c.getBlacklist()) {
+            bl = (CharSequence) ("Blacklisted");
+            blField.setText(bl);
+        }
 
     }
 
@@ -95,10 +74,9 @@ public class DisplayContactActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-
             return true;
 
-        default:
+            default:
             // If we got here, the user's action was not recognized.
             // Invoke the superclass to handle it.
             return super.onOptionsItemSelected(item);
@@ -116,15 +94,27 @@ public class DisplayContactActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
-//
-//    public void editContact(View button) {
-//        Bundle dataBundle = new Bundle();
-//        dataBundle.putInt("id", id_To_Update);
-//
-//        Intent intent = new Intent(this, DisplayEditActivity.class);
-//
-//        intent.putExtras(dataBundle);
-//
-//        startActivity(intent);
-//    }
+
+    public void smsContact(View button) {
+        if(this.contact.getBlacklist())
+            Toast.makeText(DisplayContactActivity.this,"Contact BlackListed", Toast.LENGTH_LONG).show();
+        else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + this.contact.getPhoneNumber()));
+            startActivity(intent);
+        }
+
+    }
+
+    public void callContact(View button){
+        if(this.contact.getBlacklist())
+            Toast.makeText(DisplayContactActivity.this,"Contact BlackListed", Toast.LENGTH_LONG).show();
+        else {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + this.contact.getPhoneNumber()));
+            startActivity(intent);
+        }
+
+
+
+    }
+
 }

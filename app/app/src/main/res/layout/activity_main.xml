@@ -12,8 +12,8 @@
         android:layout_height="40dp"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:background="@android:drawable/ic_menu_add"
-        android:backgroundTint="@android:color/darker_gray"
+        android:background="@android:drawable/ic_input_add"
+        android:backgroundTint="@android:color/holo_green_dark"
         android:onClick="addContact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -21,17 +21,17 @@
     <ListView
         android:id="@+id/contactList"
         android:layout_width="405dp"
-        android:layout_height="569dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="515dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.357" />
 
 </android.support.constraint.ConstraintLayout>
