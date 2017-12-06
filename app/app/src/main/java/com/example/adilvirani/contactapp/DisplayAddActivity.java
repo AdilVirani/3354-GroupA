@@ -44,43 +44,60 @@ public class DisplayAddActivity extends AppCompatActivity {
 
     public void addContact() {
         buttonDone.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String first = FirstName.getText().toString();
-                        String last = LastName.getText().toString();
-                        String gn = GroupName.getText().toString();
-                        String num = PhoneNum.getText().toString();
-                        int bl;
-                        if (blacklist) //if blacklist = true
-                            bl = 1;
-                        else
-                            bl = 0;
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String firstName = FirstName.getText().toString();
+                    String lastName = LastName.getText().toString();
+                    String groupName = GroupName.getText().toString();
+                    String phoneNumber = PhoneNum.getText().toString();
 
-                        String fullName = first + " " + last;
+                    int bl = (blacklist) ? 1 : 0;
+//                    int bl;
+//                    if (blacklist) //if blacklist = true
+//                        bl = 1;
+//                    else
+//                        bl = 0;
 
-                        Intent intent = new Intent();
+                    Contact contact = new Contact(firstName, lastName, groupName, phoneNumber);
+                    String fullName = contact.fullName();
 
-                        if(!fullName.equals(" ")) {
-                            intent.putExtra("fullName", fullName);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                            boolean isInserted = myDb.insertContact(first, last, gn, num, bl);
-                            if (isInserted == true)
-                                Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
-                            else
-                                Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent();
 
-                            setResult(RESULT_CANCELED,intent);
-                            finish();
-                        }
+
+                    if (!fullName.equals(" ")) {
+                        intent.putExtra("fullName", fullName);
+                        setResult(RESULT_OK, intent);
+                        finish();
+
+                        saveContact(contact);
+
+//                            boolean isInserted = myDb.insertContact(first, last, gn, num, bl);
+//                            if (isInserted == true)
+//                                Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
+//                            else
+//                                Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
+//
+                    }
+                    else
+                    {
+                        Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
+
+                        setResult(RESULT_CANCELED, intent);
+                        finish();
                     }
                 }
+            }
         );
+    }
+
+    public void saveContact(Contact c) {
+//        boolean inserted = this.myDb.insertContact(c);
+        if (this.myDb.insertContact(c) !=  null) {
+            Toast.makeText(DisplayAddActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(DisplayAddActivity.this,"Data NOT Inserted", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onCheckboxClicked(View view) {
@@ -90,11 +107,12 @@ public class DisplayAddActivity extends AppCompatActivity {
         switch (view.getId()) {
 
             case R.id.checkBox_blacklist:
-                if (checked) {
-                    blacklist = true;
-                } else {
-                    blacklist = false;
-                }
+                blacklist = checked;
+//                if (checked) {
+//                    blacklist = true;
+//                } else {
+//                    blacklist = false;
+//                }
                 break;
         }
     }

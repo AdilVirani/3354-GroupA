@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 public class DisplayEditActivity extends AppCompatActivity {
 
-    private ContactDatabase mydb;
+    protected ContactDatabase mydb;
+    protected Contact contact;
+
     EditText firstfield;
     EditText lastfield;
     EditText phonefield;
@@ -41,64 +43,74 @@ public class DisplayEditActivity extends AppCompatActivity {
         mydb = new ContactDatabase(this);
         Bundle extras = getIntent().getExtras();
 
+        Contact c = (Contact) extras.getSerializable("contact");
+        contact = c;
+
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
         if (checkBox.isChecked()) {
             checkBox.setChecked(false);
         }
 
-        if(extras !=null) {
-            int value = extras.getInt("id");
-            if(value>0){
-                id_To_Update = value;
-                Cursor rs = mydb.getData(value);
-                rs.moveToFirst();
-
-                String first = rs.getString(rs.getColumnIndex(ContactDatabase.COL_2));
-                String last = rs.getString(rs.getColumnIndex(ContactDatabase.COL_3));
-                String group = rs.getString(rs.getColumnIndex(ContactDatabase.COL_4));
-                String number = rs.getString(rs.getColumnIndex(ContactDatabase.COL_5));
-
-                if (!rs.isClosed())  {
-                    rs.close();
-                }
-
-                firstfield.setText(first, TextView.BufferType.EDITABLE);
-                lastfield.setText(last, TextView.BufferType.EDITABLE);
-                groupfield.setText(group, TextView.BufferType.EDITABLE);
-                phonefield.setText(number, TextView.BufferType.EDITABLE);
-            }
-        }
+            firstfield.setText(c.getFirstName(), TextView.BufferType.EDITABLE);
+            lastfield.setText(c.getLastName(), TextView.BufferType.EDITABLE);
+            groupfield.setText(c.getGroupName(), TextView.BufferType.EDITABLE);
+            phonefield.setText(c.getPhoneNumber(), TextView.BufferType.EDITABLE);
+//
+//        if(extras !=null) {
+//            int value = extras.getInt("id");
+//            if(value>0){
+//                id_To_Update = value;
+//                Cursor rs = mydb.getData(value);
+//                rs.moveToFirst();
+//
+//                String first = rs.getString(rs.getColumnIndex(ContactDatabase.COL_2));
+//                String last = rs.getString(rs.getColumnIndex(ContactDatabase.COL_3));
+//                String group = rs.getString(rs.getColumnIndex(ContactDatabase.COL_4));
+//                String number = rs.getString(rs.getColumnIndex(ContactDatabase.COL_5));
+//
+//                if (!rs.isClosed())  {
+//                    rs.close();
+//                }
+//
+//                firstfield.setText(first, TextView.BufferType.EDITABLE);
+//                lastfield.setText(last, TextView.BufferType.EDITABLE);
+//                groupfield.setText(group, TextView.BufferType.EDITABLE);
+//                phonefield.setText(number, TextView.BufferType.EDITABLE);
+//            }
+//        }
 
         editContact();
     }
 
     public void editContact() {
         buttonDone.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String first = firstfield.getText().toString();
-                        String last = lastfield.getText().toString();
-                        String gn = groupfield.getText().toString();
-                        String num = phonefield.getText().toString();
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String first = firstfield.getText().toString();
+                    String last = lastfield.getText().toString();
+                    String gn = groupfield.getText().toString();
+                    String num = phonefield.getText().toString();
+                    contact.update(first, last, gn, num);
 
-                        int bl;
-                        if (blacklist) //if blacklist = true
-                            bl = 1;
-                        else
-                            bl = 0;
+                    int bl;
+                    if (blacklist) //if blacklist = true
+                        bl = 1;
+                    else
+                        bl = 0;
 
-                        boolean isInserted = mydb.updateContact(id_To_Update, first, last, gn, num, bl);
-                        if (isInserted == true) {
-                            Toast.makeText(DisplayEditActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                        }
-                        else
-                            Toast.makeText(DisplayEditActivity.this,"Data NOT Updated", Toast.LENGTH_LONG).show();
-
+                    boolean isInserted = mydb.updateContact(contact);
+//                        boolean isInserted = mydb.updateContact(id_To_Update, first, last, gn, num, bl);
+                    if (isInserted == true) {
+                        Toast.makeText(DisplayEditActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                     }
+                    else
+                        Toast.makeText(DisplayEditActivity.this,"Data NOT Updated", Toast.LENGTH_LONG).show();
+
                 }
+            }
         );
     }
 
