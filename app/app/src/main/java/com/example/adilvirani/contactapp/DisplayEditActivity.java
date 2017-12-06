@@ -48,7 +48,7 @@ public class DisplayEditActivity extends AppCompatActivity {
         contact = c;
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox_blacklist);
-        if (checkBox.isChecked()) {
+        if (c.getBlacklist()) {
             checkBox.setChecked(true);
         }
 

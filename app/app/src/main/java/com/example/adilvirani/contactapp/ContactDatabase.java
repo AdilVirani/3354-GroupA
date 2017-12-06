@@ -143,7 +143,10 @@ public class ContactDatabase extends SQLiteOpenHelper {
         contentValues.put(COL_3, c.lastName);
         contentValues.put(COL_4, c.groupName);
         contentValues.put(COL_5, c.phoneNumber);
-//        contentValues.put(COL_6, blacklist);
+        if (c.getBlacklist())
+            contentValues.put(COL_6, 1);
+        else
+            contentValues.put(COL_6, 0);
         int rt = db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(c._id) } );
 
         return rt > 0;
