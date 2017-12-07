@@ -40,10 +40,14 @@ import static org.junit.Assert.*;
 //}
 
 
+    /** Written by Adil Virani **/
+    /** Test if contact is inserted into list **/
+    /** Test if contact is removed from list **/
+
 @RunWith(AndroidJUnit4.class)
 public class ContactDatabaseTest {
     @Test
-    public void addContact() throws Exception {
+    public void checkList() throws Exception {
         // warn: runs on same db
         Context appContext = InstrumentationRegistry.getTargetContext();
         Contact c = new Contact("adil", "virani", "n/a", "2145664791", false);

@@ -16,6 +16,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/** Written by Faraz Madhani **/
+/** Test if contact is inserted into database **/
+/** Test if contact is removed from database **/
+
 @RunWith(AndroidJUnit4.class)
 public class ContactDBTest {
 
